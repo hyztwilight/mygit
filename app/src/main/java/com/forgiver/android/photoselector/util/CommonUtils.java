@@ -13,15 +13,13 @@ import android.util.DisplayMetrics;
 import com.forgiver.android.photoselector.ui.PhotoSelectorActivity;
 
 /**
- * ͨ�ù�����
- * 
+ *
  * @author chenww
  * 
  */
 public class CommonUtils {
 
 	/**
-	 * ����activity
 	 */
 	public static void launchActivity(Context context, Class<?> activity) {
 		Intent intent = new Intent(context, activity);
@@ -30,7 +28,6 @@ public class CommonUtils {
 	}
 
 	/**
-	 * ����activity(������)
 	 */
 	public static void launchActivity(Context context, Class<?> activity, Bundle bundle) {
 		Intent intent = new Intent(context, activity);
@@ -40,7 +37,6 @@ public class CommonUtils {
 	}
 
 	/**
-	 * ����activity(������)
 	 */
 	public static void launchActivity(Context context, Class<?> activity, String key, int value) {
 		Bundle bundle = new Bundle();
@@ -71,7 +67,6 @@ public class CommonUtils {
 		activity.startActivityForResult(intent, requestCode);
 	}
 
-	/** ����һ������ */
 	public static void launchService(Context context, Class<?> service) {
 		Intent intent = new Intent(context, service);
 		context.startService(intent);
@@ -83,7 +78,6 @@ public class CommonUtils {
 	}
 
 	/**
-	 * �ж��ַ����Ƿ�Ϊ��
 	 * @param text
 	 * @return true null false !null
 	 */
@@ -93,21 +87,18 @@ public class CommonUtils {
 		return false;
 	}
 
-	/** ��ȡ��Ļ��� */
 	public static int getWidthPixels(Activity activity) {
 		DisplayMetrics dm = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.widthPixels;
 	}
 
-	/** ��ȡ��Ļ�߶� */
 	public static int getHeightPixels(Activity activity) {
 		DisplayMetrics dm = new DisplayMetrics();
 		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
 		return dm.heightPixels;
 	}
 
-	/** ͨ��Uri��ȡͼƬ·�� */
 	public static String query(Context context, Uri uri) {
 		Cursor cursor = context.getContentResolver().query(uri, new String[] { ImageColumns.DATA }, null, null, null);
 		cursor.moveToNext();

@@ -23,7 +23,6 @@ public class AlbumController {
 		resolver = context.getContentResolver();
 	}
 
-	/** ��ȡ�����Ƭ�б� */
 	public List<PhotoModel> getCurrent() {
 		Cursor cursor = resolver.query(Media.EXTERNAL_CONTENT_URI, new String[] { ImageColumns.DATA,
 				ImageColumns.DATE_ADDED, ImageColumns.SIZE }, null, null, ImageColumns.DATE_ADDED);
@@ -41,7 +40,6 @@ public class AlbumController {
 		return photos;
 	}
 
-	/** ��ȡ��������б� */
 	public List<AlbumModel> getAlbums() {
 		List<AlbumModel> albums = new ArrayList<AlbumModel>();
 		Map<String, AlbumModel> map = new HashMap<String, AlbumModel>();
@@ -50,7 +48,7 @@ public class AlbumController {
 		if (cursor == null || !cursor.moveToNext())
 			return new ArrayList<AlbumModel>();
 		cursor.moveToLast();
-		AlbumModel current = new AlbumModel("�����Ƭ", 0, cursor.getString(cursor.getColumnIndex(ImageColumns.DATA)), true); // "�����Ƭ"���
+		AlbumModel current = new AlbumModel("所有照片", 0, cursor.getString(cursor.getColumnIndex(ImageColumns.DATA)), true);
 		albums.add(current);
 		do {
 			if (cursor.getInt(cursor.getColumnIndex(ImageColumns.SIZE)) < 1024 * 10)
@@ -69,7 +67,6 @@ public class AlbumController {
 		return albums;
 	}
 
-	/** ��ȡ��Ӧ����µ���Ƭ */
 	public List<PhotoModel> getAlbum(String name) {
 		Cursor cursor = resolver.query(Media.EXTERNAL_CONTENT_URI, new String[] { ImageColumns.BUCKET_DISPLAY_NAME,
 				ImageColumns.DATA, ImageColumns.DATE_ADDED, ImageColumns.SIZE }, "bucket_display_name = ?",

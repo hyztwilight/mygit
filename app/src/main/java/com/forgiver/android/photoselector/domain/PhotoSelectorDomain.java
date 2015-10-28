@@ -41,7 +41,6 @@ public class PhotoSelectorDomain {
 		}).start();
 	}
 
-	/** ��ȡ����б� */
 	public void updateAlbum(final PhotoSelectorActivity.OnLocalAlbumListener listener) {
 		final Handler handler = new Handler() {
 			@SuppressWarnings("unchecked")
@@ -61,7 +60,6 @@ public class PhotoSelectorDomain {
 		}).start();
 	}
 
-	/** ��ȡ��������µ�������Ƭ��Ϣ */
 	public void getAlbum(final String name, final PhotoSelectorActivity.OnLocalReccentListener listener) {
 		final Handler handler = new Handler() {
 			@SuppressWarnings("unchecked")

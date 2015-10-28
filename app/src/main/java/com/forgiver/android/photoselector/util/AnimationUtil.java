@@ -11,8 +11,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
 /**
- * ����������
- * 
+ *
  * @author chen
  * 
  */
@@ -28,20 +27,17 @@ public class AnimationUtil implements AnimationListener {
 		this.animation.setAnimationListener(this);
 	}
 
-	/** �Զ���һ��Translate���͵�Animation */
 	public AnimationUtil(float fromXDelta, float toXDelta, float fromYDelta,
 			float toYDelta) {
 		animation = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta,
 				toYDelta);
 	}
 
-	/** ��������֮���ʱ���� */
 	public AnimationUtil setStartOffSet(long startOffset) {
 		animation.setStartOffset(startOffset);
 		return this;
 	}
 
-	/** ����һ�������Ĳ����� */
 	public AnimationUtil setInterpolator(Interpolator i) {
 		animation.setInterpolator(i);
 		return this;
@@ -52,12 +48,10 @@ public class AnimationUtil implements AnimationListener {
 		return this;
 	}
 
-	/** ��ʼ���� */
 	public void startAnimation(View view) {
 		view.startAnimation(animation);
 	}
 
-	/** ����һ��֡���� */
 	public static void startAnimation(int resId, View view) {
 		view.setBackgroundResource(resId);
 		((AnimationDrawable) view.getBackground()).start();

@@ -41,7 +41,6 @@ public class PhotoSelectorAdapter extends MBaseAdapter<PhotoModel> {
 		this.cameraListener = cameraListener;
 	}
 
-	/** ����ÿһ��Item�Ŀ�� */
 	public void setItemWidth(int screenWidth) {
 		int horizentalSpace = context.getResources().getDimensionPixelSize(R.dimen.sticky_item_horizontalSpacing);
 		this.itemWidth = (screenWidth - (horizentalSpace * (horizentalNum - 1))) / horizentalNum;

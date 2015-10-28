@@ -42,12 +42,10 @@ public class AlbumItem extends LinearLayout {
 		this(context, attrs);
 	}
 
-	/** ÉèÖÃÏà²á·âÃæ */
 	public void setAlbumImage(String path) {
 		ImageLoader.getInstance().displayImage("file://" + path, ivAlbum);
 	}
 
-	/** ³õÊ¼»¯ */
 	public void update(AlbumModel album) {
 		setAlbumImage(album.getRecent());
 		setName(album.getName());
@@ -60,7 +58,7 @@ public class AlbumItem extends LinearLayout {
 	}
 
 	public void setCount(int count) {
-		tvCount.setHint(count + "ÕÅ");
+		tvCount.setHint(count + "张");
 	}
 
 	public void isCheck(boolean isCheck) {
