@@ -3,18 +3,18 @@ package com.forgiver.android.photoselector.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.forgiver.android.R;
 import com.forgiver.android.photoselector.model.PhotoModel;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 /**
@@ -25,7 +25,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
 		OnLongClickListener {
 
-	private ImageView ivPhoto;
+	private SimpleDraweeView ivPhoto;
 	private CheckBox cbPhoto;
 	private onPhotoItemCheckedListener listener;
 	private PhotoModel photo;
@@ -45,16 +45,16 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
 
 		setOnLongClickListener(this);
 
-		ivPhoto = (ImageView) findViewById(R.id.iv_photo_lpsi);
+		ivPhoto = (SimpleDraweeView) findViewById(R.id.iv_photo_lpsi);
 		cbPhoto = (CheckBox) findViewById(R.id.cb_photo_lpsi);
 
-		cbPhoto.setOnCheckedChangeListener(this); // CheckBoxѡ��״̬�ı������
+		cbPhoto.setOnCheckedChangeListener(this);
 	}
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (!isCheckAll) {
-			listener.onCheckedChanged(photo, buttonView, isChecked); // ����������ص�����
+			listener.onCheckedChanged(photo, buttonView, isChecked);
 		}
 		if (isChecked) {
 			setDrawingable();
@@ -75,9 +75,10 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
 		 * "file://" + photo.getOriginalPath(), ivPhoto); } }, new
 		 * Random().nextInt(10));
 		 */
+		ivPhoto.setImageURI(Uri.parse("file://" + photo.getOriginalPath()));
 
-		ImageLoader.getInstance().displayImage(
-				"file://" + photo.getOriginalPath(), ivPhoto);
+//		ImageLoader.getInstance().displayImage(
+//				"file://" + photo.getOriginalPath(), ivPhoto);
 	}
 
 	private void setDrawingable() {

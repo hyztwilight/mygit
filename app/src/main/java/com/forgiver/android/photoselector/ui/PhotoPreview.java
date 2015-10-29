@@ -6,7 +6,9 @@ package com.forgiver.android.photoselector.ui;
  */
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Animatable;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +16,14 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.imagepipeline.image.ImageInfo;
 import com.forgiver.android.R;
 import com.forgiver.android.photoselector.model.PhotoModel;
 import com.forgiver.android.polites.GestureImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 
 public class PhotoPreview extends LinearLayout implements OnClickListener {
@@ -45,24 +49,42 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 		this(context);
 	}
 
+
+
 	public void loadImage(PhotoModel photoModel) {
 		loadImage("file://" + photoModel.getOriginalPath());
 	}
 
-	private void loadImage(String path) {
-		ImageLoader.getInstance().loadImage(path, new SimpleImageLoadingListener() {
+	private void loadImage(final String path) {
+		ControllerListener controllerListener = new BaseControllerListener<ImageInfo>(){
 			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				ivContent.setImageBitmap(loadedImage);
+			public void onFinalImageSet(
+					String id,
+					@Nullable ImageInfo imageInfo,
+					@Nullable Animatable animatable) {
+				ivContent.setImageURI(Uri.parse(path));
+				pbLoading.setVisibility(View.GONE);
+
+			}
+
+			@Override
+			public void onFailure(String id, Throwable throwable) {
+				ivContent.setImageDrawable(getResources().getDrawable(R.drawable.ic_picture_loadfailed));
 				pbLoading.setVisibility(View.GONE);
 			}
 
 			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-				ivContent.setImageDrawable(getResources().getDrawable(R.drawable.ic_picture_loadfailed));
-				pbLoading.setVisibility(View.GONE);
+			public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
+				super.onIntermediateImageSet(id, imageInfo);
 			}
-		});
+		};
+
+		DraweeController controller = Fresco.newDraweeControllerBuilder()
+				.setControllerListener(controllerListener)
+				.setUri(Uri.parse(path))
+				.build();
+
+		ivContent.setController(controller);
 	}
 
 	@Override

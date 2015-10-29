@@ -6,6 +6,7 @@ package com.forgiver.android.photoselector.ui;
  */
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.forgiver.android.R;
 import com.forgiver.android.photoselector.model.AlbumModel;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 
 public class AlbumItem extends LinearLayout {
 
-	private ImageView ivAlbum, ivIndex;
+	private SimpleDraweeView ivAlbum;
+	private ImageView  ivIndex;
 	private TextView tvName, tvCount;
 
 	public AlbumItem(Context context) {
@@ -32,7 +34,7 @@ public class AlbumItem extends LinearLayout {
 		super(context, attrs);
 		LayoutInflater.from(context).inflate(R.layout.layout_album, this, true);
 
-		ivAlbum = (ImageView) findViewById(R.id.iv_album_la);
+		ivAlbum = (SimpleDraweeView) findViewById(R.id.iv_album_la);
 		ivIndex = (ImageView) findViewById(R.id.iv_index_la);
 		tvName = (TextView) findViewById(R.id.tv_name_la);
 		tvCount = (TextView) findViewById(R.id.tv_count_la);
@@ -43,7 +45,7 @@ public class AlbumItem extends LinearLayout {
 	}
 
 	public void setAlbumImage(String path) {
-		ImageLoader.getInstance().displayImage("file://" + path, ivAlbum);
+		ivAlbum.setImageURI(Uri.parse("file://" + path));
 	}
 
 	public void update(AlbumModel album) {

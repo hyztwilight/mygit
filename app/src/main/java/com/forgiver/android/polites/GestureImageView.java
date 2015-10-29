@@ -38,7 +38,9 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
-public class GestureImageView extends ImageView  {
+import com.facebook.drawee.view.SimpleDraweeView;
+
+public class GestureImageView extends SimpleDraweeView {
 
 	public static final String GLOBAL_NS = "http://schemas.android.com/apk/res/android";
 	public static final String LOCAL_NS = "http://schemas.polites.com/android";
